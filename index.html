@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Mapa de Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff0f5;
+            color: #4a4a4a;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff69b4;
+            text-align: center;
+            font-size: 3em;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 2em;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        #info, #intro {
+            padding: 20px;
+            background-color: #fff9f9;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        #info {
+            display: none;
+        }
+        #info.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        #title {
+            font-family: 'Dancing Script', cursive;
+            color: #ff69b4;
+            font-size: 2em;
+            margin-top: 0;
+        }
+        #photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #description {
+            font-style: italic;
+            color: #696969;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .heart {
+            position: fixed;
+            font-size: 2em;
+            color: #ff69b4;
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #ff69b4;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #ff1493;
+            transform: scale(1.05);
+        }
+        .postscript {
+            font-family: 'Dancing Script', cursive;
+            color: #ff69b4;
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="introContainer">
+        <h1>Mi Amor, Bienvenida a Nuestro Mapa de Recuerdos</h1>
+        <div id="intro">
+            <h2>Instrucciones para Navegar por Nuestro Amor</h2>
+            <p>Peshosha, he creado este mapa especial para ti, lleno de nuestros momentos que considero mas preciosos. Estan y estaran los lugares que han sido testigos de nuestro amor, mi cielito 🥺.</p>
+            <p>Para explorar nuestros recuerdos:</p>
+            <ol>
+                <li>Haz clic en los viñeticas que verás en el mapa.</li>
+                <li>Cada viñetica guarda un recuerdo especial de nosotros.</li>
+                <li>Cuando hagas click, aparecerá una foto y una descripción de ese momento mágico. Si no aparece la foto es porque no hay o no me la quisiste pasar  🥺</li>
+            </ol>
+            <p>Cada punto en este mapa es lo que me hace recordarte. Espero que al verlo, sientas todo el amor que te tengo.</p>
+            <p>¿Estás lista para este viaje por nuestros recuerdos mi vida?</p>
+            <p class="postscript">P.D.: Amor, aún faltan muchos más recuerdos por agregar. Este es solo el comienzo de nuestra hermosa historia. Con todo mi amor, Isaac.</p>
+        </div>
+        <a href="#" class="btn" id="startJourney">Comenzar Nuestro Viaje</a>
+    </div>
+
+    <div class="container" id="mapContainer" style="display: none;">
+        <h1>Nuestro Mapa de Amor</h1>
+        <div id="map"></div>
+        <div id="info">
+            <h2 id="title"></h2>
+            <img id="photo" src="" alt="No hay foto 🥺">
+            <p id="description"></p>
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 10.9878, lng: -74.7889}, // Barranquilla
+                zoom: 12,
+            });
+
+            const memories = [
+                {
+                    position: { lat: 10.958979, lng: -74.797583},
+                    title: "Te pedí ser mi novia",
+                    photo: "media/Tepediserminovia.jpeg",
+                    description: "Recuerdo que estábamos en el sofá y no me querías dar un beso, y me dijiste 'Tienes que ser mi novio para besarte, si no, no' y te pedí ser mi novia (no quería hacerlo en tu casa pero se dio la oportunidad)."
+                },
+                {
+                    position: {lat: 10.959012, lng: -74.797579},
+                    title: "Nuestro primer beso",
+                    photo: "media/Tepediserminovia.jpeg",
+                    description: "Fue en el mismo momento anterior que me dijiste que sí, te interrumpí enseguida JAJAJAJJAJA, amor, ese día dormí como un bebé, estaba bastante feliz y estoy bastante feliz de estar contigo."
+                },
+                {
+                    position: {lat: 10.988888, lng: -74.805130},
+                    title: "Cuando te presenté con mis papás",
+                    photo: "media/Dondemispapas.jpeg",
+                    description: "Ese día tenías planeado ir de picnic y ¡tara! Sorpresa sorpresa, le preparé comidita a mi amor bonito y le presenté a mis papás. Eres lo mejor que me ha pasado amor, lo siento por todo mi vida no te lo mereces, haré lo posible por ser el mejor para ti. ¡TE AMO!"
+                },
+                {
+                    position: {lat: 10.994108, lng: -74.804283},
+                    title: "Primer picnic",
+                    photo: "media/picnic.jpeg",
+                    description: "Terminamos de estar con mis papás y salimos corriendo y felices porque oficialmente eras mi novia oficial. La pasamos tan bonito en el parque pintando y comiendo DeTodito picante. Me encanta mi amor, hagámoslo de nuevo, lo planearé."
+                },
+                {
+                    position: {lat: 10.961735, lng: -74.796278},
+                    title: "Nuestra primera salida (literalmente)",
+                    photo: "No hay foto",
+                    description: "Amor, recuerdo que te digo que vayamos a comer. Llegamos, pedimos, y viene la cuenta JAJAJAJAJAJA. Lo más pato de mi vida JAJAJAJA, lo siento amor :( Me entregas el billete de 50 y yo ah vaina, es dura de roer jejeje. Pagamos los dos y salimos a comprarte un Gaviscon porque te dolía la pancita. JAJAJAJA, tú con ganas de cagar y yo bien pato. ¡Te amo!"
+                },
+                {
+                    position: {lat: 10.965094, lng: -74.796857},
+                    title: "Nuestra primera cita siendo novios",
+                    photo: "media/barbecue.jpeg",
+                    description: "Te pasé a recoger, fuimos, llegamos, hablamos y pedimos dos hamburguesitas. Cuando degustamos, amor, estaban deliciosas y habíamos quedado encantados de esa belleza de hamburguesa. Pero en un futuro conocimos algo mejor: Humo y Barril, ¡qué belleza! Qué buen día fueron ambos, pero ya voy para allá, no me apresuraré."
+                }
+            ];
+
+            memories.forEach(memory => {
+                const marker = new google.maps.Marker({
+                    position: memory.position,
+                    map: map,
+                    icon: {
+                        path: google.maps.SymbolPath.HEART,
+                        fillColor: '#ff69b4',
+                        fillOpacity: 0.9,
+                        strokeWeight: 0,
+                        scale: 10
+                    }
+                });
+
+                marker.addListener('click', () => {
+                    document.getElementById('title').textContent = memory.title;
+                    document.getElementById('photo').src = memory.photo;
+                    document.getElementById('description').textContent = memory.description;
+                    document.getElementById('info').classList.add('visible');
+                });
+            });
+        }
+
+        // Añadir corazones flotantes
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = `${Math.random() * 95}vw`;
+            heart.style.top = `${Math.random() * 90}vh`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heart.innerHTML = '❤';
+            document.body.appendChild(heart);
+        }
+
+        // Manejar el botón para comenzar el viaje
+        document.getElementById('startJourney').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('introContainer').style.display = 'none';
+            document.getElementById('mapContainer').style.display = 'block';
+            initMap(); // Inicializar el mapa después de mostrar el contenedor
+        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw1pw-v0TG0YKutVToylHFSKrdnwCCvCk&callback=initMap" async defer></script>
+</body>
+</html>
